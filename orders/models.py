@@ -6,9 +6,9 @@ from django.db import models
 from decimal import Decimal
 
 # every Django model fields can be customized by re-use parameter under
-# simple dictionary format 
+# simple dictionary format
 AMOUNT_MONEY = {
-                'max_digits': 25, 'decimal_places': 2, 
+                'max_digits': 25, 'decimal_places': 2,
                 'default': Decimal('0.00')
                }
 
@@ -34,7 +34,7 @@ class CommonInfo(models.Model):
 
 class ODOrder(CommonInfo):
     """
-    Order details contain name, phone and amount of total price order 
+    Order details contain name, phone and amount of total price order
     """
     name = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
@@ -45,3 +45,13 @@ class ODOrder(CommonInfo):
 
     class Meta:
         verbose_name_plural = "Customer"
+
+# New module vehicle
+clas Vehicle(models.Model):
+    name = models.CharField(max_length=25, unique=True, verbose_name="Nama Angkutan")
+    driver = models.CharField(max_length=50, verbose_name="Pengemudi")
+    number = models.CharField(max_length=50, verbose_name="Nomer Angkutan")
+    capacity = models.PositiveIntegerField(verbose_name="Kapasitas")
+
+    def __unicode__(self):
+        return self.number
