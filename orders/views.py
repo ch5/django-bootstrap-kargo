@@ -5,7 +5,35 @@ from django.shortcuts import render, redirect
 from orders.forms import ODOrderForm
 from orders.models import ODOrder
 
+############################################################
+#               My code and on task                        #
+############################################################
+from orders.models import Vehicle
+from orders.forms import VehicleForm
 
+# Function list already table
+def vehicle_list(request):
+    vehicle_list = Vehicle.objects.all()
+    context = {
+        'vehicle_list':vehicle_list
+    }
+    return render(request, 'vehicle/vehicle_list.html', context)
+
+def vehicle_create(request):
+    if request.method == 'POST':
+        form = VehicleForm(request.POST)
+        if form.is_valid():
+            vehicle = form.save(commit=False)
+            vehicle.number = vehicle.number.upper()
+            vehicle.save()
+            messages.success(request, "Adding Vehicle")
+            return redirect(reverse('order:vehicle_list'))
+        return redirect(reverse('order:vehicle_list'))
+    else:
+        form = VehicleForm()
+    return render(request, 'vehicle/vehicle_form.html', {'form':form})
+
+####
 def index(request):
     """
     Handle index page for order
@@ -22,7 +50,7 @@ def management(request):
     # query on all order records
     orders = ODOrder.objects.all()
 
-    # structured order into simple dict, 
+    # structured order into simple dict,
     # later on, in template, we can render it easily, ex: {{ orders }}
     data = {'orders': orders}
 
@@ -50,7 +78,7 @@ def create_order(request):
 
         if form.is_valid():
 
-            # wrap form result into dict ODOrder model fields structure 
+            # wrap form result into dict ODOrder model fields structure
             order_data = {
                 'name': form.cleaned_data.get('name'),
                 'phone': form.cleaned_data.get('phone'),

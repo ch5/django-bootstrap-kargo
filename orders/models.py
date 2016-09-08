@@ -48,9 +48,12 @@ class ODOrder(CommonInfo):
 
 # New module vehicle
 class Vehicle(models.Model):
-    name = models.CharField(max_length=25, unique=True, verbose_name="Nama Angkutan")
+    """
+    Vehicle contains name, driver, number, capacity
+    """
+    name = models.CharField(max_length=25, unique=True, verbose_name="Nama Kendaraan")
     driver = models.CharField(max_length=50, verbose_name="Pengemudi")
-    number = models.CharField(max_length=50, verbose_name="Nomer Angkutan")
+    number = models.CharField(max_length=50, verbose_name="Nomer Kendaraan")
     capacity = models.PositiveIntegerField(verbose_name="Kapasitas")
 
     def __unicode__(self):

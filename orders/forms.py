@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from orders.models import ODOrder
+from orders.models import ODOrder, Vehicle
 
 
 class ODOrderForm(forms.ModelForm):
@@ -12,3 +12,11 @@ class ODOrderForm(forms.ModelForm):
     class Meta:
         model = ODOrder
         fields = ('name', 'phone', 'price')
+
+class VehicleForm(forms.ModelForm):
+    """
+    Form to manage Vehicle data-entry
+    """
+    class Meta:
+        model = Vehicle
+        fields = ['name','driver','number','capacity']

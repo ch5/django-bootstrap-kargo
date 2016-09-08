@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block header %}{% endblock header %}
+
+{% block smalltitle %} Customers <span class='label label-info label-small'>{{ vehicles.count }}</span> {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12">
+        {% for message in messages %}
+            <h4{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</h4>
+        {% endfor %}
+
+        <div class="widget">
+            <div class="widget-body">
+                <a href="{% url 'order:vehicle_create' %}"><button type="button" class="btn btn-primary"><i class=" fa fa-plus"></i> Create a New</button></a></a>
+                <hr/>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Driver</th>
+                            <th>Number of vehicle</th>
+                            <th>Capacity</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for vehicle in vehicle_list %}
+                        <tr>
+                          <td scope="row">{{ forloop.counter }}</td>
+                          <td>{{ vehicle.name }}</td>
+                          <td>{{ vehicle.driver }}</td>
+                          <td>{{ vehicle.number }}</td>
+                          <td>{{ vehicle.capacity }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

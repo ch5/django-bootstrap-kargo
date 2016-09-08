@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% block header %} {% endblock header %}
+
+{% block smalltitle %} Create New Customer Data {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12">
+        {% for message in messages %}
+            <h4{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</h4>
+        {% endfor %}
+
+       <div class="widget">
+            <div class="widget-body">
+                <form action="." method="post" class="form">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {{ form.number.errors }}
+                        {{ form.number.label_tag }}
+                        {{ form.number|add_class:'form-control' }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.name.errors }}
+                        {{ form.name.label_tag }}
+                        {{ form.name|add_class:'form-control' }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.driver.errors }}
+                        {{ form.driver.label_tag }}
+                        {{ form.driver|add_class:'form-control' }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.capacity.errors }}
+                        {{ form.capacity.label_tag }}
+                        {{ form.capacity|add_class:'form-control' }}
+                    </div>
+
+                    <input type="submit" value="Save" class="btn btn-success">
+                </form>
+
+                <hr/>
+
+                <a href="{% url 'order:vehicle_list' %}" class="btn btn-default">Back to Customers</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

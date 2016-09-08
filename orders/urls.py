@@ -9,3 +9,12 @@ urlpatterns = [
     url(r'^edit_order/(?P<uuid>[0-9a-z-]+)/$', order_views.edit_order, name="edit_order"),
     url(r'^delete_order/(?P<uuid>[0-9a-z-]+)/$', order_views.delete_order, name="delete_order"),
 ]
+
+#########################################################
+#              My Taks URL                              #
+#########################################################
+from orders import views
+urlpatterns += [
+    url(r'^customers/$', views.vehicle_list, name='vehicle_list'),
+    url(r'customers/create/$', views.vehicle_create, name='vehicle_create'),
+]
