@@ -47,7 +47,7 @@ class ODOrder(CommonInfo):
         verbose_name_plural = "Customer"
 
 # New module vehicle
-clas Vehicle(models.Model):
+class Vehicle(models.Model):
     name = models.CharField(max_length=25, unique=True, verbose_name="Nama Angkutan")
     driver = models.CharField(max_length=50, verbose_name="Pengemudi")
     number = models.CharField(max_length=50, verbose_name="Nomer Angkutan")
