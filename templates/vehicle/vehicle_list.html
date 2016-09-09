@@ -12,15 +12,15 @@
 
         <div class="widget">
             <div class="widget-body">
-                <a href="{% url 'order:vehicle_create' %}"><button type="button" class="btn btn-primary"><i class=" fa fa-plus"></i> Create a New</button></a></a>
+                <a href="{% url 'order:vehicle_create' %}"><button type="button" class="btn btn-primary"><i class=" fa fa-plus"></i> Create a New</button></a>
                 <hr/>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>Name Of Vehicle</th>
                             <th>Driver</th>
-                            <th>Number of vehicle</th>
+                            <th>Vehicle Number</th>
                             <th>Capacity</th>
                             <th>Action</th>
                         </tr>
@@ -33,6 +33,14 @@
                           <td>{{ vehicle.driver }}</td>
                           <td>{{ vehicle.number }}</td>
                           <td>{{ vehicle.capacity }}</td>
+                          <td>
+                          <a class="btn btn-info btn-xs" href="#">
+                              <i class=" fa fa-edit"></i> Edit
+                          <a/>
+                          <a class="btn btn-danger btn-xs" href="#">
+                              <i class=" fa fa-trash"></i> Delete
+                          <a/>
+                      </td>
                         </tr>
                       {% endfor %}
                     </tbody>
