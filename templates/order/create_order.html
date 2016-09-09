@@ -26,24 +26,24 @@
                     <div class="form-group">
                         {{ form.name.errors }}
                         {{ form.name.label_tag }}
-                        {{ form.name }}
+                        {{ form.name|add_class:'form-control'}}
                     </div>
 
                     <div class="form-group">
                         {{ form.phone.errors }}
                         {{ form.phone.label_tag }}
-                        {{ form.phone }}
+                        {{ form.phone|add_class:'form-control'}}
                     </div>
 
                     <div class="form-group">
                         {{ form.price.errors }}
                         {{ form.price.label_tag }}
-                        {{ form.price }}
+                        {{ form.price|add_class:'form-control'}}
                     </div>
 
                     <input type="submit" value="Save" class="btn btn-success">
                 </form>
-                
+
                 <hr/>
 
                 <a href="{% url 'order:management' %}" class="btn btn-default">Back to Management</a>
