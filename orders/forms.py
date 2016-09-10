@@ -13,10 +13,17 @@ class ODOrderForm(forms.ModelForm):
         model = ODOrder
         fields = ('name', 'phone', 'price')
 
-class VehicleForm(forms.ModelForm):
+########################################################################
+#                       My Form task                                   #
+########################################################################
+class VehicleCreateForm(forms.ModelForm):
     """
     Form to manage Vehicle data-entry
     """
     class Meta:
         model = Vehicle
         fields = ['name','driver','number','capacity']
+
+########################################################################
+#                       End Task                                       #
+########################################################################

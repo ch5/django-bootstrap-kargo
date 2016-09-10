@@ -46,15 +46,23 @@ class ODOrder(CommonInfo):
     class Meta:
         verbose_name_plural = "Customer"
 
+
+########################################################################
+#                   My models code and task                            #
+########################################################################
 # New module vehicle
 class Vehicle(models.Model):
     """
-    Vehicle contains name, driver, number, capacity
+    Vehicle details contain name, driver, number, capacity
     """
-    name = models.CharField(max_length=25, unique=True, verbose_name="Nama Kendaraan")
+    name = models.CharField(max_length=25,  verbose_name="Nama Kendaraan")
     driver = models.CharField(max_length=50, verbose_name="Pengemudi")
-    number = models.CharField(max_length=50, verbose_name="Nomer Kendaraan")
+    number = models.CharField(max_length=10, verbose_name="Nomer Kendaraan")
     capacity = models.PositiveIntegerField(verbose_name="Kapasitas")
 
     def __unicode__(self):
         return self.number
+
+########################################################################
+#                       End Task                                       #
+########################################################################

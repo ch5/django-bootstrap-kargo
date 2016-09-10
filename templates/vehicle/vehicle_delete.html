@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block header %} {% endblock header %}
+
+{% block smalltitle %}Delete Data Customer{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12">
+        {% for message in messages %}
+            <h4{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</h4>
+        {% endfor %}
+
+        <div class="widget">
+            <div class="widget-body">
+                <h1>Confirm delete this table content?</h1>
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Driver</th>
+                        <th>Number of Vehicle</th>
+                        <th>Capacity</th>
+                    </tr>
+                    <tr>
+                        <td>{{ vehicle.name }}</td>
+                        <td>{{ vehicle.driver }}</td>
+                        <td>{{ vehicle.number }}</td>
+                        <td>{{ vehicle.capacity }}</td>
+                    </tr>
+                </table>
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+                        <input type="submit" value="Confirm" class="btn btn-warning">
+                        <a href="{% url 'order:vehicle_list' %}" class="btn btn-default">Cancel</a>
+                     </form>
+                <hr/>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

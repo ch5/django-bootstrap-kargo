@@ -19,12 +19,6 @@
                     {% csrf_token %}
 
                     <div class="form-group">
-                        {{ form.number.errors }}
-                        {{ form.number.label_tag }}
-                        {{ form.number|add_class:'form-control' }}
-                    </div>
-
-                    <div class="form-group">
                         {{ form.name.errors }}
                         {{ form.name.label_tag }}
                         {{ form.name|add_class:'form-control' }}
@@ -34,6 +28,12 @@
                         {{ form.driver.errors }}
                         {{ form.driver.label_tag }}
                         {{ form.driver|add_class:'form-control' }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.number.errors }}
+                        {{ form.number.label_tag }}
+                        {{ form.number|add_class:'form-control' }}
                     </div>
 
                     <div class="form-group">

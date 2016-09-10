@@ -17,4 +17,6 @@ from orders import views
 urlpatterns += [
     url(r'^customers/$', views.vehicle_list, name='vehicle_list'),
     url(r'customers/create/$', views.vehicle_create, name='vehicle_create'),
+    url(r'customers/edit/(?P<number>[a-zA-Z0-9]+)/$', views.vehicle_edit, name='vehicle_edit'),
+    url(r'customers/delete/(?P<number>[a-zA-Z0-9]+)/$', views.vehicle_delete, name='vehicle_delete'),
 ]

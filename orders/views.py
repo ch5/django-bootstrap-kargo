@@ -5,35 +5,88 @@ from django.shortcuts import render, redirect
 from orders.forms import ODOrderForm
 from orders.models import ODOrder
 
-############################################################
-#               My code and on task                        #
-############################################################
+########################################################################
+#                   My view code and on task                           #
+########################################################################
 from orders.models import Vehicle
-from orders.forms import VehicleForm
+from orders.forms import VehicleCreateForm
+from django.shortcuts import get_object_or_404
 
-# Function list already table
 def vehicle_list(request):
+    """
+    Showing list of order in costumers home page
+    """
+
+    # query on all vehicle_list records
     vehicle_list = Vehicle.objects.all()
+
+    # structured vehicle_list into simple dict,
     context = {
-        'vehicle_list':vehicle_list
+        'vehicle_list':vehicle_list,
     }
     return render(request, 'vehicle/vehicle_list.html', context)
 
+
 def vehicle_create(request):
+    """
+    Handle new customer
+    """
     if request.method == 'POST':
-        form = VehicleForm(request.POST)
+        form = VehicleCreateForm(request.POST)
         if form.is_valid():
             vehicle = form.save(commit=False)
             vehicle.number = vehicle.number.upper()
             vehicle.save()
-            messages.success(request, "Adding Vehicle")
+            messages.success(request, 'Adding data vehicle')
             return redirect(reverse('order:vehicle_list'))
-        return redirect(reverse('order:vehicle_list'))
     else:
-        form = VehicleForm()
-    return render(request, 'vehicle/vehicle_form.html', {'form':form})
+        form = VehicleCreateForm()
 
-####
+    context = {
+        'form':form
+    }
+    return render(request, 'vehicle/vehicle_form.html', context)
+
+def vehicle_edit(request, number):
+    """
+    Handle edit data vehicle from menu customers
+    """
+    vehicle = get_object_or_404(Vehicle, number=number)
+    # if request POST edit vehicle
+    if request.method == 'POST':
+        form = VehicleCreateForm(request.POST, instance=vehicle)
+        if form.is_valid():
+            vehicle = form.save(commit=False)
+            vehicle.number = vehicle.number.upper()
+            vehicle.save()
+            messages.success(request, 'Vehicle already updated')
+            return redirect(reverse('order:vehicle_list'))
+    else:
+        # if request GET or something open form without edit
+        form = VehicleCreateForm(instance=vehicle)
+
+    context = {
+        'form': form,
+        'vehicle': vehicle
+    }
+    return render(request, 'vehicle/vehicle_form.html', context)
+
+def vehicle_delete(request, number):
+    vehicle = get_object_or_404(Vehicle, number=number)
+    if request.method == 'POST':
+        # delete table vehicle from database
+        vehicle.delete()
+        messages.success(request, 'This has been deleted')
+        return redirect(reverse('order:vehicle_list'))
+
+    context = {
+        'vehicle': vehicle
+    }
+    return render(request, 'vehicle/vehicle_delete.html', context)
+
+########################################################################
+#                         End Task                                     #
+########################################################################
 def index(request):
     """
     Handle index page for order

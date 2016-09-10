@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block header %}{% endblock header %}
 
 {% block smalltitle %} Customers <span class='label label-info label-small'>{{ vehicles.count }}</span> {% endblock %}
@@ -34,10 +35,10 @@
                           <td>{{ vehicle.number }}</td>
                           <td>{{ vehicle.capacity }}</td>
                           <td>
-                          <a class="btn btn-info btn-xs" href="#">
+                          <a class="btn btn-info btn-xs" href="{% url 'order:vehicle_edit' vehicle.number %}">
                               <i class=" fa fa-edit"></i> Edit
                           <a/>
-                          <a class="btn btn-danger btn-xs" href="#">
+                          <a class="btn btn-danger btn-xs" href="{% url 'order:vehicle_delete' vehicle.number%}">
                               <i class=" fa fa-trash"></i> Delete
                           <a/>
                       </td>
