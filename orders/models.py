@@ -55,10 +55,12 @@ class Vehicle(models.Model):
     """
     Vehicle details contain name, driver, number, capacity
     """
-    name = models.CharField(max_length=25,  verbose_name="Nama Kendaraan")
-    driver = models.CharField(max_length=50, verbose_name="Pengemudi")
-    number = models.CharField(max_length=10, verbose_name="Nomer Kendaraan")
-    capacity = models.PositiveIntegerField(verbose_name="Kapasitas")
+    name = models.CharField(max_length=25,  verbose_name='Nama Kendaraan')
+    driver = models.CharField(max_length=50, verbose_name='Pengemudi')
+    number = models.CharField(max_length=10, verbose_name='Nomer Kendaraan')
+    capacity = models.PositiveIntegerField(verbose_name='Kapasitas')
+    # Bonus point models (Photo)
+    photo = models.ImageField(upload_to='vehicles/%Y/%m/%d', verbose_name='Foto')
 
     def __unicode__(self):
         return self.number

@@ -22,7 +22,13 @@ class VehicleCreateForm(forms.ModelForm):
     """
     class Meta:
         model = Vehicle
-        fields = ['name','driver','number','capacity']
+        fields = [
+        'name',
+        'driver',
+        'number',
+        'photo',
+        'capacity'
+        ]
 
 ########################################################################
 #                       End Task                                       #

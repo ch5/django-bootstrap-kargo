@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
+from django.conf import settings
+from django.conf.urls.static import static
 from orders import views as orders_views
 from orders import urls as orders_url
 
@@ -28,3 +29,9 @@ urlpatterns = [
     # linked url in module orders from main urls.py to app url
     url(r'^order/', include(orders_url, namespace="order")),
 ]
+
+# Managing Static files
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

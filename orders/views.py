@@ -11,12 +11,12 @@ from orders.models import ODOrder
 from orders.models import Vehicle
 from orders.forms import VehicleCreateForm
 from django.shortcuts import get_object_or_404
+from PIL import Image
+from django.conf import settings
 
+
+# Function Showing list of order in costumers home page
 def vehicle_list(request):
-    """
-    Showing list of order in costumers home page
-    """
-
     # query on all vehicle_list records
     vehicle_list = Vehicle.objects.all()
 
@@ -26,18 +26,26 @@ def vehicle_list(request):
     }
     return render(request, 'vehicle/vehicle_list.html', context)
 
-
+# Function for Handle new customer, contain (name, driver, number, vehicle)
 def vehicle_create(request):
-    """
-    Handle new customer
-    """
     if request.method == 'POST':
-        form = VehicleCreateForm(request.POST)
+        form = VehicleCreateForm(request.POST, request.FILES)
         if form.is_valid():
             vehicle = form.save(commit=False)
             vehicle.number = vehicle.number.upper()
             vehicle.save()
-            messages.success(request, 'Adding data vehicle')
+            # Pillow documentation (https://pillow.readthedocs.io/en/3.3.x/)
+            # Request photo from models
+            request.FILES.get('photo')
+            thumbnail = 90, 120
+            # file path to media /media/year/month/day(vehicle.photo)
+            photo_media = settings.MEDIA_ROOT+"/"+vehicle.photo.name
+            img = Image.open(photo_media)
+            # create thumbnails with thumbnail size (90, 120)
+            img.thumbnail(thumbnail)
+            # saving image
+            img.save(photo_media)
+            messages.success(request, 'Adding data Customer')
             return redirect(reverse('order:vehicle_list'))
     else:
         form = VehicleCreateForm()
@@ -45,16 +53,14 @@ def vehicle_create(request):
     context = {
         'form':form
     }
-    return render(request, 'vehicle/vehicle_form.html', context)
+    return render(request, 'vehicle/vehicle_create.html', context)
 
+# Handle edit data vehicle from menu customers
 def vehicle_edit(request, number):
-    """
-    Handle edit data vehicle from menu customers
-    """
     vehicle = get_object_or_404(Vehicle, number=number)
     # if request POST edit vehicle
     if request.method == 'POST':
-        form = VehicleCreateForm(request.POST, instance=vehicle)
+        form = VehicleCreateForm(request.POST, request.FILES, instance=vehicle)
         if form.is_valid():
             vehicle = form.save(commit=False)
             vehicle.number = vehicle.number.upper()
@@ -69,8 +75,9 @@ def vehicle_edit(request, number):
         'form': form,
         'vehicle': vehicle
     }
-    return render(request, 'vehicle/vehicle_form.html', context)
+    return render(request, 'vehicle/vehicle_edit.html', context)
 
+# Function for delete table on table orders_vehicle
 def vehicle_delete(request, number):
     vehicle = get_object_or_404(Vehicle, number=number)
     if request.method == 'POST':

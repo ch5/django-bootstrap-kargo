@@ -1,7 +1,7 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load i18n %}
-{% block header %}{% endblock header %}
-
+{% load widget_tweaks %}
 {% block smalltitle %} Customers <span class='label label-info label-small'>{{ vehicles.count }}</span> {% endblock %}
 
 {% block content %}
@@ -23,6 +23,7 @@
                             <th>Driver</th>
                             <th>Vehicle Number</th>
                             <th>Capacity</th>
+                            <th>Photo</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -34,14 +35,17 @@
                           <td>{{ vehicle.driver }}</td>
                           <td>{{ vehicle.number }}</td>
                           <td>{{ vehicle.capacity }}</td>
+                          {% if vehicle.photo %}
+                          <td><img src="{{ vehicle.photo.url }}" class="img-thumbnail"></td>
                           <td>
+                          {% endif %}
                           <a class="btn btn-info btn-xs" href="{% url 'order:vehicle_edit' vehicle.number %}">
                               <i class=" fa fa-edit"></i> Edit
                           <a/>
                           <a class="btn btn-danger btn-xs" href="{% url 'order:vehicle_delete' vehicle.number%}">
                               <i class=" fa fa-trash"></i> Delete
                           <a/>
-                      </td>
+                          </td>
                         </tr>
                       {% endfor %}
                     </tbody>
